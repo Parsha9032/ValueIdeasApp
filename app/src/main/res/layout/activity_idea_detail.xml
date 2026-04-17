@@ -71,6 +71,16 @@
                             android:paddingHorizontal="10dp"
                             android:paddingVertical="4dp" />
 
+                        <TextView
+                            android:id="@+id/textCategory"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:textSize="13sp"
+                            android:textStyle="italic"
+                            android:textColor="@color/accent"
+                            android:visibility="gone" />
+
                         <View android:layout_width="0dp" android:layout_height="0dp" android:layout_weight="1" />
 
                         <com.google.android.material.button.MaterialButton

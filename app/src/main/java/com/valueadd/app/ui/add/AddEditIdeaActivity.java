@@ -3,6 +3,7 @@ package com.valueadd.app.ui.add;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,7 +46,15 @@ public class AddEditIdeaActivity extends AppCompatActivity {
             getSupportActionBar().setTitle("New Idea");
         }
 
+        setupCategoryDropdown();
         binding.btnSave.setOnClickListener(v -> saveIdea());
+    }
+
+    private void setupCategoryDropdown() {
+        String[] categories = {"Business", "Personal", "Tech", "Finance", "Other"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_dropdown_item_1line, categories);
+        binding.editCategory.setAdapter(adapter);
     }
 
     private void loadExistingIdea(int id) {
@@ -60,6 +69,7 @@ public class AddEditIdeaActivity extends AppCompatActivity {
     private void populateFields(Idea idea) {
         binding.editTitle.setText(idea.getTitle());
         binding.editDescription.setText(idea.getDescription());
+        binding.editCategory.setText(idea.getCategory(), false);
         binding.editTags.setText(idea.getTagsAsString());
         binding.switchPriority.setChecked(idea.isPriority());
         binding.editMilestone1.setText(idea.getMilestone1());
@@ -70,6 +80,7 @@ public class AddEditIdeaActivity extends AppCompatActivity {
     private void saveIdea() {
         String title = binding.editTitle.getText().toString().trim();
         String description = binding.editDescription.getText().toString().trim();
+        String category = binding.editCategory.getText().toString().trim();
         String tagsRaw = binding.editTags.getText().toString().trim();
         boolean isPriority = binding.switchPriority.isChecked();
         String milestone1 = binding.editMilestone1.getText().toString().trim();
@@ -109,6 +120,7 @@ public class AddEditIdeaActivity extends AppCompatActivity {
             // Update existing
             existingIdea.setTitle(title);
             existingIdea.setDescription(description);
+            existingIdea.setCategory(category);
             existingIdea.setTags(tags);
             existingIdea.setPriority(isPriority);
             existingIdea.setMilestone1(milestone1.isEmpty() ? null : milestone1);
@@ -121,6 +133,7 @@ public class AddEditIdeaActivity extends AppCompatActivity {
             Idea idea = new Idea();
             idea.setTitle(title);
             idea.setDescription(description);
+            idea.setCategory(category);
             idea.setTags(tags);
             idea.setPriority(isPriority);
             idea.setMilestone1(milestone1.isEmpty() ? null : milestone1);

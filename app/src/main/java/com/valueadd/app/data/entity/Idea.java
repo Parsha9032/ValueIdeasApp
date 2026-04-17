@@ -23,6 +23,8 @@ public class Idea {
     private String status; // "Not Started", "In Progress", "Completed"
     private int progressPercentage; // 0-100
     private boolean isPriority;
+    private String category; // "Business", "Personal", "Tech", "Finance", "Other"
+    private boolean isArchived;
     private String milestone1;
     private String milestone2;
     private String milestone3;
@@ -70,6 +72,12 @@ public class Idea {
 
     public boolean isPriority() { return isPriority; }
     public void setPriority(boolean priority) { isPriority = priority; }
+
+    public String getCategory() { return category; }
+    public void setCategory(String category) { this.category = category; }
+
+    public boolean isArchived() { return isArchived; }
+    public void setArchived(boolean archived) { isArchived = archived; }
 
     public String getMilestone1() { return milestone1; }
     public void setMilestone1(String milestone1) { this.milestone1 = milestone1; }

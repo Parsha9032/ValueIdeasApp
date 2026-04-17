@@ -11,7 +11,7 @@ import com.valueadd.app.data.dao.IdeaDao;
 import com.valueadd.app.data.entity.Idea;
 import com.valueadd.app.utils.Converters;
 
-@Database(entities = {Idea.class}, version = 1, exportSchema = false)
+@Database(entities = {Idea.class}, version = 2, exportSchema = false)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
 

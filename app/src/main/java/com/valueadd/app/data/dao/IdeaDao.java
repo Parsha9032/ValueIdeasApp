@@ -24,8 +24,11 @@ public interface IdeaDao {
     @Delete
     void delete(Idea idea);
 
-    @Query("SELECT * FROM ideas ORDER BY isPriority DESC, dateModified DESC")
+    @Query("SELECT * FROM ideas WHERE isArchived = 0 ORDER BY isPriority DESC, dateModified DESC")
     LiveData<List<Idea>> getAllIdeas();
+
+    @Query("SELECT * FROM ideas WHERE isArchived = 1 ORDER BY dateModified DESC")
+    LiveData<List<Idea>> getArchivedIdeas();
 
     @Query("SELECT * FROM ideas WHERE id = :id")
     LiveData<Idea> getIdeaById(int id);
@@ -33,20 +36,26 @@ public interface IdeaDao {
     @Query("SELECT * FROM ideas WHERE id = :id")
     Idea getIdeaByIdSync(int id);
 
-    @Query("SELECT * FROM ideas WHERE title LIKE '%' || :query || '%' ORDER BY isPriority DESC, dateModified DESC")
+    @Query("SELECT * FROM ideas WHERE title LIKE '%' || :query || '%' AND isArchived = 0 ORDER BY isPriority DESC, dateModified DESC")
     LiveData<List<Idea>> searchByTitle(String query);
 
-    @Query("SELECT * FROM ideas WHERE tags LIKE '%' || :tag || '%' ORDER BY isPriority DESC, dateModified DESC")
+    @Query("SELECT * FROM ideas WHERE tags LIKE '%' || :tag || '%' AND isArchived = 0 ORDER BY isPriority DESC, dateModified DESC")
     LiveData<List<Idea>> searchByTag(String tag);
 
-    @Query("SELECT * FROM ideas WHERE (title LIKE '%' || :query || '%' OR tags LIKE '%' || :query || '%') ORDER BY isPriority DESC, dateModified DESC")
+    @Query("SELECT * FROM ideas WHERE (title LIKE '%' || :query || '%' OR tags LIKE '%' || :query || '%') AND isArchived = 0 ORDER BY isPriority DESC, dateModified DESC")
     LiveData<List<Idea>> searchIdeas(String query);
 
-    @Query("SELECT * FROM ideas WHERE status = :status ORDER BY isPriority DESC, dateModified DESC")
+    @Query("SELECT * FROM ideas WHERE status = :status AND isArchived = 0 ORDER BY isPriority DESC, dateModified DESC")
     LiveData<List<Idea>> getIdeasByStatus(String status);
 
-    @Query("SELECT * FROM ideas WHERE isPriority = 1 ORDER BY dateModified DESC")
+    @Query("SELECT * FROM ideas WHERE category = :category AND isArchived = 0 ORDER BY isPriority DESC, dateModified DESC")
+    LiveData<List<Idea>> getIdeasByCategory(String category);
+
+    @Query("SELECT * FROM ideas WHERE isPriority = 1 AND isArchived = 0 ORDER BY dateModified DESC")
     LiveData<List<Idea>> getPriorityIdeas();
+
+    @Query("UPDATE ideas SET isArchived = :archive WHERE id = :id")
+    void setArchived(int id, boolean archive);
 
     @Query("DELETE FROM ideas WHERE id = :id")
     void deleteById(int id);

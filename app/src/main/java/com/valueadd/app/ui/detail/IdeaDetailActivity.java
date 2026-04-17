@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -67,6 +68,14 @@ public class IdeaDetailActivity extends AppCompatActivity {
 
         binding.textTitle.setText(idea.getTitle());
         binding.textDescription.setText(idea.getDescription());
+
+        // Category
+        if (idea.getCategory() != null && !idea.getCategory().isEmpty()) {
+            binding.textCategory.setVisibility(View.VISIBLE);
+            binding.textCategory.setText("📁 " + idea.getCategory());
+        } else {
+            binding.textCategory.setVisibility(View.GONE);
+        }
 
         if (idea.getDateCreated() != null)
             binding.textDateCreated.setText("Created: " + dateFormat.format(idea.getDateCreated()));
@@ -266,8 +275,45 @@ public class IdeaDetailActivity extends AppCompatActivity {
         } else if (item.getItemId() == R.id.action_edit) {
             openEditActivity();
             return true;
+        } else if (item.getItemId() == R.id.action_share) {
+            shareIdea();
+            return true;
+        } else if (item.getItemId() == R.id.action_archive) {
+            toggleArchive();
+            return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void shareIdea() {
+        if (currentIdea == null) return;
+
+        String shareBody = String.format(
+                "💡 Idea: %s\n\nPlan: %s\n\nStatus: %s (%d%%)\n📁 Category: %s\n🏷 Tags: %s",
+                currentIdea.getTitle(),
+                currentIdea.getDescription(),
+                currentIdea.getStatus(),
+                currentIdea.getProgressPercentage(),
+                currentIdea.getCategory() != null ? currentIdea.getCategory() : "General",
+                currentIdea.getTagsAsString()
+        );
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Value Idea: " + currentIdea.getTitle());
+        intent.putExtra(Intent.EXTRA_TEXT, shareBody);
+        startActivity(Intent.createChooser(intent, "Share Idea via"));
+    }
+
+    private void toggleArchive() {
+        if (currentIdea == null) return;
+        boolean newArchiveStatus = !currentIdea.isArchived();
+        currentIdea.setArchived(newArchiveStatus);
+        viewModel.update(currentIdea);
+
+        String msg = newArchiveStatus ? "Idea archived 📁" : "Idea restored from archive";
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        if (newArchiveStatus) finish(); // Go back if archived
     }
 
     private void openEditActivity() {

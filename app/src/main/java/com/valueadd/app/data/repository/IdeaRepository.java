@@ -58,6 +58,18 @@ public class IdeaRepository {
         return ideaDao.getIdeasByStatus(status);
     }
 
+    public LiveData<List<Idea>> getIdeasByCategory(String category) {
+        return ideaDao.getIdeasByCategory(category);
+    }
+
+    public LiveData<List<Idea>> getArchivedIdeas() {
+        return ideaDao.getArchivedIdeas();
+    }
+
+    public void setArchived(int id, boolean archive) {
+        executorService.execute(() -> ideaDao.setArchived(id, archive));
+    }
+
     public LiveData<List<Idea>> getPriorityIdeas() {
         return ideaDao.getPriorityIdeas();
     }

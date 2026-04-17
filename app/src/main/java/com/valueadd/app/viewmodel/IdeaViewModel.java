@@ -87,6 +87,18 @@ public class IdeaViewModel extends AndroidViewModel {
         return repository.getPriorityIdeas();
     }
 
+    public void setArchived(int id, boolean archive) {
+        repository.setArchived(id, archive);
+    }
+
+    public LiveData<List<Idea>> getArchivedIdeas() {
+        return repository.getArchivedIdeas();
+    }
+
+    public LiveData<List<Idea>> getIdeasByCategory(String category) {
+        return repository.getIdeasByCategory(category);
+    }
+
     public String getMotivationalMessage(int progress) {
         if (progress == 100) {
             return "🎉 Amazing! You've completed this idea! Keep crushing it!";
