@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Value ideas</string>
+    <string name="add_idea">Add Idea</string>
+    <string name="edit_idea">Edit Idea</string>
+    <string name="delete_idea">Delete Idea</string>
+    <string name="idea_title">Idea Title</string>
+    <string name="idea_description">Description</string>
+    <string name="idea_tags">Tags</string>
+    <string name="status_not_started">Not Started</string>
+    <string name="status_in_progress">In Progress</string>
+    <string name="status_completed">Completed</string>
+    <string name="priority">Priority</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+    <string name="search_hint">Search ideas…</string>
+    <string name="no_ideas">No ideas yet!</string>
+    <string name="no_ideas_sub">Tap + to capture your first idea</string>
+    <string name="milestones">Milestones</string>
+    <string name="progress">Progress</string>
+    <string name="about">About</string>
+</resources>

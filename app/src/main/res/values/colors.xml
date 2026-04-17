@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Brand Colors -->
+    <color name="primary">#2E7D32</color>
+    <color name="primary_dark">#1B5E20</color>
+    <color name="primary_light">#4CAF50</color>
+    <color name="accent">#FFC107</color>
+    <color name="accent_light">#FFECB3</color>
+    <color name="nature_green">#4CAF50</color>
+
+    <!-- Status Colors -->
+    <color name="status_not_started">#9E9E9E</color>
+    <color name="status_in_progress">#2196F3</color>
+    <color name="status_completed">#4CAF50</color>
+
+    <!-- UI Colors -->
+    <color name="background">#F1F8E9</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="error">#F44336</color>
+    <color name="priority_yellow">#FFC107</color>
+    <color name="divider">#E0E0E0</color>
+    <color name="progress_background">#E8EAF6</color>
+    <color name="tag_chip_background">#EDE7F6</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#616161</color>
+    <color name="text_tertiary">#9E9E9E</color>
+    <color name="white">#FFFFFF</color>
+    <color name="white_alpha">#B3FFFFFF</color>
+    <color name="gray">#9E9E9E</color>
+
+    <!-- Chip colors -->
+    <color name="chip_checked_background">#2E7D32</color>
+    <color name="chip_unchecked_background">#FFFFFF</color>
+    <color name="chip_checked_text">#FFFFFF</color>
+    <color name="chip_unchecked_text">#2E7D32</color>
+
+    <!-- Switch colors -->
+    <color name="switch_thumb_on">#FFC107</color>
+    <color name="switch_thumb_off">#BDBDBD</color>
+    <color name="switch_track_on">#FFE082</color>
+    <color name="switch_track_off">#E0E0E0</color>
+
+    <!-- Material defaults needed -->
+    <color name="colorPrimary">#2E7D32</color>
+    <color name="colorPrimaryDark">#1B5E20</color>
+    <color name="colorAccent">#FFC107</color>
+</resources>
