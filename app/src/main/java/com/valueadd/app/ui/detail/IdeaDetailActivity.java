@@ -185,23 +185,23 @@ public class IdeaDetailActivity extends AppCompatActivity {
         binding.btnCompleted.setOnClickListener(v -> updateStatus("Completed", 100));
 
         // Milestone checkboxes
-        binding.checkMilestone1.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        binding.checkMilestone1.setOnClickListener(v -> {
             if (currentIdea != null) {
-                currentIdea.setMilestone1Done(isChecked);
+                currentIdea.setMilestone1Done(binding.checkMilestone1.isChecked());
                 autoUpdateProgress();
                 viewModel.update(currentIdea);
             }
         });
-        binding.checkMilestone2.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        binding.checkMilestone2.setOnClickListener(v -> {
             if (currentIdea != null) {
-                currentIdea.setMilestone2Done(isChecked);
+                currentIdea.setMilestone2Done(binding.checkMilestone2.isChecked());
                 autoUpdateProgress();
                 viewModel.update(currentIdea);
             }
         });
-        binding.checkMilestone3.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        binding.checkMilestone3.setOnClickListener(v -> {
             if (currentIdea != null) {
-                currentIdea.setMilestone3Done(isChecked);
+                currentIdea.setMilestone3Done(binding.checkMilestone3.isChecked());
                 autoUpdateProgress();
                 viewModel.update(currentIdea);
             }
@@ -309,11 +309,14 @@ public class IdeaDetailActivity extends AppCompatActivity {
         if (currentIdea == null) return;
         boolean newArchiveStatus = !currentIdea.isArchived();
         currentIdea.setArchived(newArchiveStatus);
-        viewModel.update(currentIdea);
-
-        String msg = newArchiveStatus ? "Idea archived 📁" : "Idea restored from archive";
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-        if (newArchiveStatus) finish(); // Go back if archived
+        
+        viewModel.update(currentIdea, () -> {
+            runOnUiThread(() -> {
+                String msg = newArchiveStatus ? "Idea archived 📁" : "Idea restored from archive";
+                Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+                if (newArchiveStatus) finish(); // Go back if archived
+            });
+        });
     }
 
     private void openEditActivity() {

@@ -116,8 +116,12 @@ public class AddEditIdeaActivity extends AppCompatActivity {
             }
         }
 
-        if (editIdeaId != -1 && existingIdea != null) {
+        if (editIdeaId != -1) {
             // Update existing
+            if (existingIdea == null) {
+                Toast.makeText(this, "Wait! Idea still loading...", Toast.LENGTH_SHORT).show();
+                return;
+            }
             existingIdea.setTitle(title);
             existingIdea.setDescription(description);
             existingIdea.setCategory(category);
@@ -126,8 +130,13 @@ public class AddEditIdeaActivity extends AppCompatActivity {
             existingIdea.setMilestone1(milestone1.isEmpty() ? null : milestone1);
             existingIdea.setMilestone2(milestone2.isEmpty() ? null : milestone2);
             existingIdea.setMilestone3(milestone3.isEmpty() ? null : milestone3);
-            viewModel.update(existingIdea);
-            Toast.makeText(this, "Idea updated!", Toast.LENGTH_SHORT).show();
+            
+            viewModel.update(existingIdea, () -> {
+                runOnUiThread(() -> {
+                    Toast.makeText(this, "Idea updated!", Toast.LENGTH_SHORT).show();
+                    finish();
+                });
+            });
         } else {
             // Create new
             Idea idea = new Idea();
@@ -145,9 +154,7 @@ public class AddEditIdeaActivity extends AppCompatActivity {
                     finish();
                 });
             });
-            return;
         }
-        finish();
     }
 
     @Override

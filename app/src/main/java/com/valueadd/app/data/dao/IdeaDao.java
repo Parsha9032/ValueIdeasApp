@@ -39,7 +39,7 @@ public interface IdeaDao {
     @Query("SELECT * FROM ideas WHERE title LIKE '%' || :query || '%' AND isArchived = 0 ORDER BY isPriority DESC, dateModified DESC")
     LiveData<List<Idea>> searchByTitle(String query);
 
-    @Query("SELECT * FROM ideas WHERE tags LIKE '%' || :tag || '%' AND isArchived = 0 ORDER BY isPriority DESC, dateModified DESC")
+    @Query("SELECT * FROM ideas WHERE (tags LIKE '%|' || :tag || '|%' OR tags LIKE :tag || '|%' OR tags LIKE '%|' || :tag OR tags = :tag) AND isArchived = 0 ORDER BY isPriority DESC, dateModified DESC")
     LiveData<List<Idea>> searchByTag(String tag);
 
     @Query("SELECT * FROM ideas WHERE (title LIKE '%' || :query || '%' OR tags LIKE '%' || :query || '%') AND isArchived = 0 ORDER BY isPriority DESC, dateModified DESC")

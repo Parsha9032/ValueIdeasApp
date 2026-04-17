@@ -21,6 +21,7 @@ import com.valueadd.app.R;
 import com.valueadd.app.data.entity.Idea;
 import com.valueadd.app.databinding.ActivityMainBinding;
 import com.valueadd.app.ui.add.AddEditIdeaActivity;
+import com.valueadd.app.ui.archive.ArchiveActivity;
 import com.valueadd.app.ui.detail.IdeaDetailActivity;
 import com.valueadd.app.viewmodel.IdeaViewModel;
 
@@ -219,7 +220,11 @@ public class MainActivity extends AppCompatActivity implements IdeaAdapter.OnIde
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_about) {
+        if (item.getItemId() == R.id.action_archive) {
+            Intent intent = new Intent(this, ArchiveActivity.class);
+            startActivity(intent);
+            return true;
+        } else if (item.getItemId() == R.id.action_about) {
             new MaterialAlertDialogBuilder(this)
                     .setTitle("Value ideas")
                     .setMessage("Capture, track, and implement your best ideas.\n\n" +

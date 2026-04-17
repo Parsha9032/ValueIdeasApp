@@ -31,6 +31,12 @@
             android:windowSoftInputMode="adjustResize"
             android:parentActivityName=".ui.home.MainActivity" />
 
+        <activity
+            android:name=".ui.archive.ArchiveActivity"
+            android:exported="false"
+            android:label="Archive"
+            android:parentActivityName=".ui.home.MainActivity" />
+
     </application>
 
 </manifest>

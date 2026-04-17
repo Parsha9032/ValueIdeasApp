@@ -55,8 +55,12 @@ public class IdeaViewModel extends AndroidViewModel {
     }
 
     public void update(Idea idea) {
+        update(idea, null);
+    }
+
+    public void update(Idea idea, IdeaRepository.UpdateCallback callback) {
         idea.setDateModified(new Date());
-        repository.update(idea);
+        repository.update(idea, callback);
     }
 
     public void delete(Idea idea) {

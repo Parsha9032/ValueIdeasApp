@@ -38,8 +38,15 @@ public class IdeaRepository {
         });
     }
 
-    public void update(Idea idea) {
-        executorService.execute(() -> ideaDao.update(idea));
+    public void update(Idea idea, UpdateCallback callback) {
+        executorService.execute(() -> {
+            ideaDao.update(idea);
+            if (callback != null) callback.onUpdated();
+        });
+    }
+
+    public interface UpdateCallback {
+        void onUpdated();
     }
 
     public void delete(Idea idea) {
