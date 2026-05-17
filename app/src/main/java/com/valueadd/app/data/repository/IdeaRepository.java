@@ -81,6 +81,28 @@ public class IdeaRepository {
         return ideaDao.getPriorityIdeas();
     }
 
+    public void insertAll(List<Idea> ideas, Runnable callback) {
+        executorService.execute(() -> {
+            ideaDao.insertAll(ideas);
+            if (callback != null) callback.run();
+        });
+    }
+
+    public void deleteAll() {
+        executorService.execute(ideaDao::deleteAll);
+    }
+
+    public void getAllIdeasForExport(ExportCallback callback) {
+        executorService.execute(() -> {
+            List<Idea> ideas = ideaDao.getAllIdeasSync();
+            if (callback != null) callback.onDataReady(ideas);
+        });
+    }
+
+    public interface ExportCallback {
+        void onDataReady(List<Idea> ideas);
+    }
+
     public interface InsertCallback {
         void onInserted(int id);
     }

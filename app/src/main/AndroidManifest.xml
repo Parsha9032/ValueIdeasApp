@@ -37,6 +37,12 @@
             android:label="Archive"
             android:parentActivityName=".ui.home.MainActivity" />
 
+        <activity
+            android:name=".ui.settings.SettingsActivity"
+            android:exported="false"
+            android:label="Settings"
+            android:parentActivityName=".ui.home.MainActivity" />
+
     </application>
 
 </manifest>

@@ -65,4 +65,12 @@ public interface IdeaDao {
 
     @Query("SELECT COUNT(*) FROM ideas WHERE status = 'Completed'")
     int getCompletedCount();
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertAll(List<Idea> ideas);
+
+    @Query("SELECT * FROM ideas ORDER BY dateCreated DESC")
+    List<Idea> getAllIdeasSync();
+
+    @Query("DELETE FROM ideas")
+    void deleteAll();
 }

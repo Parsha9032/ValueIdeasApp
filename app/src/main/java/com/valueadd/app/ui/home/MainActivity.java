@@ -23,6 +23,7 @@ import com.valueadd.app.databinding.ActivityMainBinding;
 import com.valueadd.app.ui.add.AddEditIdeaActivity;
 import com.valueadd.app.ui.archive.ArchiveActivity;
 import com.valueadd.app.ui.detail.IdeaDetailActivity;
+import com.valueadd.app.ui.settings.SettingsActivity;
 import com.valueadd.app.viewmodel.IdeaViewModel;
 
 import java.util.ArrayList;
@@ -222,6 +223,10 @@ public class MainActivity extends AppCompatActivity implements IdeaAdapter.OnIde
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_archive) {
             Intent intent = new Intent(this, ArchiveActivity.class);
+            startActivity(intent);
+            return true;
+        } else if (item.getItemId() == R.id.action_settings) {
+            Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
             return true;
         } else if (item.getItemId() == R.id.action_about) {

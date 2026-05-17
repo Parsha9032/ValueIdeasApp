@@ -103,6 +103,18 @@ public class IdeaViewModel extends AndroidViewModel {
         return repository.getIdeasByCategory(category);
     }
 
+    public void deleteAll() {
+        repository.deleteAll();
+    }
+
+    public void insertAll(List<Idea> ideas, Runnable callback) {
+        repository.insertAll(ideas, callback);
+    }
+
+    public void getAllIdeasForExport(IdeaRepository.ExportCallback callback) {
+        repository.getAllIdeasForExport(callback);
+    }
+
     public String getMotivationalMessage(int progress) {
         if (progress == 100) {
             return "🎉 Amazing! You've completed this idea! Keep crushing it!";
