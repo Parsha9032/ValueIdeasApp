@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.valueadd.app.R;
 import com.valueadd.app.data.entity.Idea;
 import com.valueadd.app.databinding.ActivitySettingsBinding;
 import com.valueadd.app.viewmodel.IdeaViewModel;
@@ -85,14 +86,14 @@ public class SettingsActivity extends AppCompatActivity {
 
             if (!importedIdeas.isEmpty()) {
                 viewModel.insertAll(importedIdeas, () -> {
-                    runOnUiThread(() -> Toast.makeText(this, "Successfully imported " + importedIdeas.size() + " ideas!", Toast.LENGTH_SHORT).show());
+                    runOnUiThread(() -> Toast.makeText(this, getString(R.string.import_success, importedIdeas.size()), Toast.LENGTH_SHORT).show());
                 });
             } else {
-                Toast.makeText(this, "No valid ideas found in file", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.import_no_data), Toast.LENGTH_SHORT).show();
             }
 
         } catch (Exception e) {
-            Toast.makeText(this, "Import failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.import_failed, e.getMessage()), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -163,11 +164,11 @@ public class SettingsActivity extends AppCompatActivity {
                 try (OutputStream outputStream = getContentResolver().openOutputStream(uri)) {
                     if (outputStream != null) {
                         outputStream.write(csvContent.toString().getBytes(StandardCharsets.UTF_8));
-                        runOnUiThread(() -> Toast.makeText(this, "Ideas exported successfully!", Toast.LENGTH_SHORT).show());
+                        runOnUiThread(() -> Toast.makeText(this, getString(R.string.export_success), Toast.LENGTH_SHORT).show());
                     }
                 }
             } catch (Exception e) {
-                runOnUiThread(() -> Toast.makeText(this, "Export failed: " + e.getMessage(), Toast.LENGTH_LONG).show());
+                runOnUiThread(() -> Toast.makeText(this, getString(R.string.export_failed, e.getMessage()), Toast.LENGTH_LONG).show());
             }
         });
     }
@@ -182,13 +183,13 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void showClearDataConfirmation() {
         new MaterialAlertDialogBuilder(this)
-                .setTitle("Clear All Data?")
-                .setMessage("This will permanently delete all your ideas. This action cannot be undone.")
-                .setPositiveButton("Clear All", (dialog, which) -> {
+                .setTitle(R.string.clear_data_title)
+                .setMessage(R.string.clear_data_message)
+                .setPositiveButton(R.string.clear_all, (dialog, which) -> {
                     viewModel.deleteAll();
-                    Toast.makeText(this, "All data cleared", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.data_cleared), Toast.LENGTH_SHORT).show();
                 })
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton(R.string.cancel, null)
                 .show();
     }
 

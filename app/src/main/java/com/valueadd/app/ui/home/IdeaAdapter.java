@@ -104,7 +104,7 @@ public class IdeaAdapter extends RecyclerView.Adapter<IdeaAdapter.IdeaViewHolder
 
             // Progress bar
             binding.progressBar.setProgress(idea.getProgressPercentage());
-            binding.textProgress.setText(idea.getProgressPercentage() + "%");
+            binding.textProgress.setText(binding.getRoot().getContext().getString(R.string.percent_format, idea.getProgressPercentage()));
 
             // Tags
             String tags = idea.getTagsAsString();
@@ -112,7 +112,7 @@ public class IdeaAdapter extends RecyclerView.Adapter<IdeaAdapter.IdeaViewHolder
                 binding.textTags.setVisibility(View.GONE);
             } else {
                 binding.textTags.setVisibility(View.VISIBLE);
-                binding.textTags.setText("🏷 " + tags);
+                binding.textTags.setText(binding.getRoot().getContext().getString(R.string.tags_format, tags));
             }
 
             // Priority star

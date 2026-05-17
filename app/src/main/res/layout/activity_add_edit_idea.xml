@@ -38,7 +38,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Idea Title *"
+                android:hint="@string/idea_title_hint"
                 app:counterEnabled="true"
                 app:counterMaxLength="100"
                 app:startIconDrawable="@drawable/ic_lightbulb"
@@ -61,7 +61,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:hint="Description *"
+                android:hint="@string/description_hint"
                 app:startIconDrawable="@drawable/ic_description"
                 app:startIconTint="@color/accent">
 
@@ -83,7 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:hint="Category"
+                android:hint="@string/category_hint"
                 app:startIconDrawable="@drawable/ic_milestone"
                 app:startIconTint="@color/accent">
 
@@ -102,8 +102,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:hint="Tags (comma-separated)"
-                app:helperText="e.g. work, innovation, tech"
+                android:hint="@string/tags_hint"
+                app:helperText="@string/tags_helper"
                 app:startIconDrawable="@drawable/ic_tag"
                 app:startIconTint="@color/accent">
 
@@ -147,7 +147,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Mark as Priority"
+                            android:text="@string/mark_priority"
                             android:textStyle="bold"
                             android:textColor="@color/text_primary"
                             android:textSize="15sp" />
@@ -155,7 +155,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Priority ideas appear at the top"
+                            android:text="@string/priority_subtext"
                             android:textColor="@color/text_secondary"
                             android:textSize="12sp" />
 
@@ -203,7 +203,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:text="Milestones (Optional)"
+                            android:text="@string/milestones_optional"
                             android:textStyle="bold"
                             android:textColor="@color/text_primary"
                             android:textSize="15sp" />
@@ -214,7 +214,7 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Milestone 1">
+                        android:hint="@string/milestone_1_hint">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editMilestone1"
@@ -230,7 +230,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:hint="Milestone 2">
+                        android:hint="@string/milestone_2_hint">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editMilestone2"
@@ -246,7 +246,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:hint="Milestone 3">
+                        android:hint="@string/milestone_3_hint">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editMilestone3"
@@ -268,7 +268,7 @@
                 android:layout_height="56dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="16dp"
-                android:text="Save Idea"
+                android:text="@string/save_idea_button"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:backgroundTint="@color/accent"

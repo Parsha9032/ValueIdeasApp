@@ -72,15 +72,15 @@ public class IdeaDetailActivity extends AppCompatActivity {
         // Category
         if (idea.getCategory() != null && !idea.getCategory().isEmpty()) {
             binding.textCategory.setVisibility(View.VISIBLE);
-            binding.textCategory.setText("📁 " + idea.getCategory());
+            binding.textCategory.setText(getString(R.string.category_format, idea.getCategory()));
         } else {
             binding.textCategory.setVisibility(View.GONE);
         }
 
         if (idea.getDateCreated() != null)
-            binding.textDateCreated.setText("Created: " + dateFormat.format(idea.getDateCreated()));
+            binding.textDateCreated.setText(getString(R.string.created_label, dateFormat.format(idea.getDateCreated())));
         if (idea.getDateModified() != null)
-            binding.textDateModified.setText("Updated: " + dateFormat.format(idea.getDateModified()));
+            binding.textDateModified.setText(getString(R.string.updated_label, dateFormat.format(idea.getDateModified())));
 
         // Status
         binding.textStatus.setText(idea.getStatus());
@@ -89,7 +89,7 @@ public class IdeaDetailActivity extends AppCompatActivity {
         // Progress
         int progress = idea.getProgressPercentage();
         binding.progressBarDetail.setProgress(progress);
-        binding.textProgressPercent.setText(progress + "%");
+        binding.textProgressPercent.setText(getString(R.string.percent_format, progress));
         binding.seekBarProgress.setProgress(progress);
         binding.textMotivational.setText(viewModel.getMotivationalMessage(progress));
 
@@ -113,7 +113,7 @@ public class IdeaDetailActivity extends AppCompatActivity {
         setupMilestones(idea);
 
         // Priority button
-        binding.btnTogglePriority.setText(idea.isPriority() ? "★ Priority" : "☆ Set Priority");
+        binding.btnTogglePriority.setText(idea.isPriority() ? R.string.priority_label : R.string.set_priority_label);
         binding.btnTogglePriority.setIconResource(
                 idea.isPriority() ? R.drawable.ic_star_filled : R.drawable.ic_star_outline);
     }
@@ -154,7 +154,7 @@ public class IdeaDetailActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser) {
                     binding.progressBarDetail.setProgress(progress);
-                    binding.textProgressPercent.setText(progress + "%");
+                    binding.textProgressPercent.setText(getString(R.string.percent_format, progress));
                     binding.textMotivational.setText(viewModel.getMotivationalMessage(progress));
                 }
             }
@@ -177,12 +177,12 @@ public class IdeaDetailActivity extends AppCompatActivity {
         });
 
         // Status buttons
-        binding.btnNotStarted.setOnClickListener(v -> updateStatus("Not Started", 0));
+        binding.btnNotStarted.setOnClickListener(v -> updateStatus(getString(R.string.status_not_started), 0));
         binding.btnInProgress.setOnClickListener(v -> {
             int current = currentIdea != null ? currentIdea.getProgressPercentage() : 0;
-            updateStatus("In Progress", current == 0 ? 10 : current);
+            updateStatus(getString(R.string.status_in_progress), current == 0 ? 10 : current);
         });
-        binding.btnCompleted.setOnClickListener(v -> updateStatus("Completed", 100));
+        binding.btnCompleted.setOnClickListener(v -> updateStatus(getString(R.string.status_completed), 100));
 
         // Milestone checkboxes
         binding.checkMilestone1.setOnClickListener(v -> {
@@ -213,13 +213,13 @@ public class IdeaDetailActivity extends AppCompatActivity {
         // Delete button
         binding.btnDelete.setOnClickListener(v -> {
             new MaterialAlertDialogBuilder(this)
-                    .setTitle("Delete Idea")
-                    .setMessage("This action cannot be undone.")
-                    .setPositiveButton("Delete", (dialog, which) -> {
+                    .setTitle(R.string.delete_idea_title)
+                    .setMessage(R.string.delete_confirm_msg)
+                    .setPositiveButton(R.string.delete, (dialog, which) -> {
                         viewModel.deleteById(ideaId);
                         finish();
                     })
-                    .setNegativeButton("Cancel", null)
+                    .setNegativeButton(R.string.cancel, null)
                     .show();
         });
 
@@ -228,8 +228,8 @@ public class IdeaDetailActivity extends AppCompatActivity {
             if (currentIdea != null) {
                 currentIdea.setPriority(!currentIdea.isPriority());
                 viewModel.update(currentIdea);
-                String msg = currentIdea.isPriority() ? "Marked as priority ⭐" : "Removed from priority";
-                Snackbar.make(binding.getRoot(), msg, Snackbar.LENGTH_SHORT).show();
+                int msgRes = currentIdea.isPriority() ? R.string.priority_added : R.string.priority_removed;
+                Snackbar.make(binding.getRoot(), msgRes, Snackbar.LENGTH_SHORT).show();
             }
         });
     }
@@ -288,21 +288,20 @@ public class IdeaDetailActivity extends AppCompatActivity {
     private void shareIdea() {
         if (currentIdea == null) return;
 
-        String shareBody = String.format(
-                "💡 Idea: %s\n\nPlan: %s\n\nStatus: %s (%d%%)\n📁 Category: %s\n🏷 Tags: %s",
+        String shareBody = getString(R.string.share_body,
                 currentIdea.getTitle(),
                 currentIdea.getDescription(),
                 currentIdea.getStatus(),
                 currentIdea.getProgressPercentage(),
-                currentIdea.getCategory() != null ? currentIdea.getCategory() : "General",
+                currentIdea.getCategory() != null ? currentIdea.getCategory() : getString(R.string.general_category),
                 currentIdea.getTagsAsString()
         );
 
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_SUBJECT, "Value Idea: " + currentIdea.getTitle());
+        intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_subject, currentIdea.getTitle()));
         intent.putExtra(Intent.EXTRA_TEXT, shareBody);
-        startActivity(Intent.createChooser(intent, "Share Idea via"));
+        startActivity(Intent.createChooser(intent, getString(R.string.share_via)));
     }
 
     private void toggleArchive() {
@@ -312,8 +311,8 @@ public class IdeaDetailActivity extends AppCompatActivity {
         
         viewModel.update(currentIdea, () -> {
             runOnUiThread(() -> {
-                String msg = newArchiveStatus ? "Idea archived 📁" : "Idea restored from archive";
-                Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+                int msgRes = newArchiveStatus ? R.string.idea_archived : R.string.idea_restored;
+                Toast.makeText(this, msgRes, Toast.LENGTH_SHORT).show();
                 if (newArchiveStatus) finish(); // Go back if archived
             });
         });

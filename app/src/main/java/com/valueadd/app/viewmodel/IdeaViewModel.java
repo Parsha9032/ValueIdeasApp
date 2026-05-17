@@ -117,23 +117,23 @@ public class IdeaViewModel extends AndroidViewModel {
 
     public String getMotivationalMessage(int progress) {
         if (progress == 100) {
-            return "🎉 Amazing! You've completed this idea! Keep crushing it!";
+            return getApplication().getString(com.valueadd.app.R.string.motivation_100);
         } else if (progress >= 75) {
-            return "🔥 Almost there! You're in the final stretch!";
+            return getApplication().getString(com.valueadd.app.R.string.motivation_75);
         } else if (progress >= 50) {
-            return "💪 Halfway done! You're on a roll, keep going!";
+            return getApplication().getString(com.valueadd.app.R.string.motivation_50);
         } else if (progress >= 25) {
-            return "⭐ Great start! Every step forward counts!";
+            return getApplication().getString(com.valueadd.app.R.string.motivation_25);
         } else if (progress > 0) {
-            return "🚀 You've started! The hardest step is always the first!";
+            return getApplication().getString(com.valueadd.app.R.string.motivation_0_plus);
         } else {
-            return "💡 Ready to make this idea happen? Let's go!";
+            return getApplication().getString(com.valueadd.app.R.string.motivation_0);
         }
     }
 
     public String getStatusFromProgress(int progress) {
-        if (progress == 0) return "Not Started";
-        if (progress == 100) return "Completed";
-        return "In Progress";
+        if (progress == 0) return getApplication().getString(com.valueadd.app.R.string.status_not_started);
+        if (progress == 100) return getApplication().getString(com.valueadd.app.R.string.status_completed);
+        return getApplication().getString(com.valueadd.app.R.string.status_in_progress);
     }
 }

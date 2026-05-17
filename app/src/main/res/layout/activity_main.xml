@@ -43,7 +43,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="Search ideas..."
+                android:hint="@string/search_hint"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 app:boxCornerRadiusTopStart="24dp"
                 app:boxCornerRadiusTopEnd="24dp"
@@ -75,7 +75,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:tint="@color/white"
                 android:visibility="gone"
-                android:contentDescription="Clear search" />
+                android:contentDescription="@string/search_clear_content_desc" />
 
         </LinearLayout>
 
@@ -134,7 +134,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="No ideas yet!"
+                android:text="@string/no_ideas_yet"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:textColor="@color/text_primary" />
@@ -144,7 +144,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Tap the + button to add your first idea"
+                android:text="@string/add_first_idea_hint"
                 android:textSize="14sp"
                 android:textColor="@color/text_secondary"
                 android:gravity="center" />
@@ -160,7 +160,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:text="New Idea"
+        android:text="@string/new_idea_title"
         app:icon="@drawable/ic_add"
         app:backgroundTint="@color/accent"
         android:textColor="@color/white"

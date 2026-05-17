@@ -34,13 +34,13 @@
         <activity
             android:name=".ui.archive.ArchiveActivity"
             android:exported="false"
-            android:label="Archive"
+            android:label="@string/archived_ideas"
             android:parentActivityName=".ui.home.MainActivity" />
 
         <activity
             android:name=".ui.settings.SettingsActivity"
             android:exported="false"
-            android:label="Settings"
+            android:label="@string/settings"
             android:parentActivityName=".ui.home.MainActivity" />
 
     </application>

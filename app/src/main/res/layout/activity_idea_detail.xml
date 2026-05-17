@@ -88,7 +88,7 @@
                             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                             android:layout_width="wrap_content"
                             android:layout_height="36dp"
-                            android:text="☆ Set Priority"
+                            android:text="@string/set_priority"
                             android:textSize="12sp"
                             app:strokeColor="@color/accent"
                             app:iconSize="16dp"
@@ -141,7 +141,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="🏷 Tags"
+                    android:text="@string/tags_label"
                     android:textStyle="bold"
                     android:textColor="@color/text_primary"
                     android:textSize="14sp"
@@ -178,7 +178,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="📊 Progress"
+                            android:text="@string/progress_label"
                             android:textStyle="bold"
                             android:textColor="@color/text_primary"
                             android:textSize="16sp" />
@@ -243,7 +243,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="⚡ Update Status"
+                        android:text="@string/update_status_label"
                         android:textStyle="bold"
                         android:textColor="@color/text_primary"
                         android:textSize="16sp"
@@ -259,7 +259,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Not\nStarted"
+                            android:text="@string/status_not_started"
                             android:textSize="11sp"
                             android:layout_marginEnd="4dp"
                             app:backgroundTint="@color/status_not_started"
@@ -270,7 +270,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="In\nProgress"
+                            android:text="@string/status_in_progress"
                             android:textSize="11sp"
                             android:layout_marginHorizontal="4dp"
                             app:backgroundTint="@color/status_in_progress"
@@ -281,7 +281,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Completed"
+                            android:text="@string/status_completed"
                             android:textSize="11sp"
                             android:layout_marginStart="4dp"
                             app:backgroundTint="@color/status_completed"
@@ -312,7 +312,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="🎯 Milestones"
+                        android:text="@string/milestones_label"
                         android:textStyle="bold"
                         android:textColor="@color/text_primary"
                         android:textSize="16sp"
@@ -360,7 +360,7 @@
                 android:layout_height="48dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp"
-                android:text="Delete Idea"
+                android:text="@string/delete_idea_button"
                 android:textColor="@color/error"
                 app:strokeColor="@color/error"
                 app:cornerRadius="24dp"
@@ -382,6 +382,6 @@
         android:src="@drawable/ic_edit"
         app:backgroundTint="@color/accent"
         app:tint="@color/white"
-        android:contentDescription="Edit idea" />
+        android:contentDescription="@string/edit_idea_content_desc" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

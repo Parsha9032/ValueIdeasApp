@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:title="Archived Ideas"
+            app:title="@string/archived_ideas"
             app:titleTextColor="@color/white"
             app:navigationIcon="?attr/homeAsUpIndicator" />
 
@@ -59,7 +59,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="No archived ideas"
+                    android:text="@string/no_archived_ideas"
                     android:textAppearance="?attr/textAppearanceHeadline6"
                     android:textColor="@color/gray" />
             </LinearLayout>

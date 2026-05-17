@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.valueadd.app.R;
 import com.valueadd.app.data.entity.Idea;
 import com.valueadd.app.databinding.ActivityArchiveBinding;
 import com.valueadd.app.ui.detail.IdeaDetailActivity;

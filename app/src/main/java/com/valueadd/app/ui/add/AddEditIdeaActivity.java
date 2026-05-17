@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.valueadd.app.R;
 import com.valueadd.app.data.entity.Idea;
 import com.valueadd.app.databinding.ActivityAddEditIdeaBinding;
 import com.valueadd.app.viewmodel.IdeaViewModel;
@@ -40,10 +41,10 @@ public class AddEditIdeaActivity extends AppCompatActivity {
         editIdeaId = getIntent().getIntExtra("IDEA_ID", -1);
 
         if (editIdeaId != -1) {
-            getSupportActionBar().setTitle("Edit Idea");
+            getSupportActionBar().setTitle(R.string.edit_idea_title);
             loadExistingIdea(editIdeaId);
         } else {
-            getSupportActionBar().setTitle("New Idea");
+            getSupportActionBar().setTitle(R.string.new_idea_title);
         }
 
         setupCategoryDropdown();
@@ -51,7 +52,13 @@ public class AddEditIdeaActivity extends AppCompatActivity {
     }
 
     private void setupCategoryDropdown() {
-        String[] categories = {"Business", "Personal", "Tech", "Finance", "Other"};
+        String[] categories = {
+                getString(R.string.category_business),
+                getString(R.string.category_personal),
+                getString(R.string.category_tech),
+                getString(R.string.category_finance),
+                getString(R.string.category_other)
+        };
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_dropdown_item_1line, categories);
         binding.editCategory.setAdapter(adapter);
@@ -89,17 +96,17 @@ public class AddEditIdeaActivity extends AppCompatActivity {
 
         // Validation
         if (TextUtils.isEmpty(title)) {
-            binding.editTitleLayout.setError("Title is required");
+            binding.editTitleLayout.setError(getString(R.string.title_required));
             return;
         }
         if (title.length() > 100) {
-            binding.editTitleLayout.setError("Title must be under 100 characters");
+            binding.editTitleLayout.setError(getString(R.string.title_too_long));
             return;
         }
         binding.editTitleLayout.setError(null);
 
         if (TextUtils.isEmpty(description)) {
-            binding.editDescriptionLayout.setError("Description is required");
+            binding.editDescriptionLayout.setError(getString(R.string.description_required));
             return;
         }
         binding.editDescriptionLayout.setError(null);
@@ -119,7 +126,7 @@ public class AddEditIdeaActivity extends AppCompatActivity {
         if (editIdeaId != -1) {
             // Update existing
             if (existingIdea == null) {
-                Toast.makeText(this, "Wait! Idea still loading...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.wait_loading, Toast.LENGTH_SHORT).show();
                 return;
             }
             existingIdea.setTitle(title);
@@ -133,7 +140,7 @@ public class AddEditIdeaActivity extends AppCompatActivity {
             
             viewModel.update(existingIdea, () -> {
                 runOnUiThread(() -> {
-                    Toast.makeText(this, "Idea updated!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.idea_updated, Toast.LENGTH_SHORT).show();
                     finish();
                 });
             });
@@ -150,7 +157,7 @@ public class AddEditIdeaActivity extends AppCompatActivity {
             idea.setMilestone3(milestone3.isEmpty() ? null : milestone3);
             viewModel.insert(idea, insertedId -> {
                 runOnUiThread(() -> {
-                    Toast.makeText(this, "Idea saved! 💡", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.idea_saved, Toast.LENGTH_SHORT).show();
                     finish();
                 });
             });

@@ -85,15 +85,15 @@ public class MainActivity extends AppCompatActivity implements IdeaAdapter.OnIde
 
     private void showDeleteConfirmation(Idea idea) {
         new MaterialAlertDialogBuilder(this)
-                .setTitle("Delete Idea")
-                .setMessage("Are you sure you want to delete \"" + idea.getTitle() + "\"?")
-                .setPositiveButton("Delete", (dialog, which) -> {
+                .setTitle(R.string.delete_idea_title)
+                .setMessage(getString(R.string.delete_idea_confirm, idea.getTitle()))
+                .setPositiveButton(R.string.delete, (dialog, which) -> {
                     viewModel.delete(idea);
-                    Snackbar.make(binding.getRoot(), "Idea deleted", Snackbar.LENGTH_LONG)
-                            .setAction("Undo", v -> viewModel.insert(idea, null))
+                    Snackbar.make(binding.getRoot(), R.string.idea_deleted, Snackbar.LENGTH_LONG)
+                            .setAction(R.string.undo, v -> viewModel.insert(idea, null))
                             .show();
                 })
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton(R.string.cancel, null)
                 .show();
     }
 
@@ -120,12 +120,18 @@ public class MainActivity extends AppCompatActivity implements IdeaAdapter.OnIde
     }
 
     private void setupFilterChips() {
-        String[] filters = {"All", "Not Started", "In Progress", "Completed", "Priority"};
+        String[] filters = {
+                getString(R.string.filter_all),
+                getString(R.string.status_not_started),
+                getString(R.string.status_in_progress),
+                getString(R.string.status_completed),
+                getString(R.string.priority)
+        };
         for (String filter : filters) {
             Chip chip = new Chip(this);
             chip.setText(filter);
             chip.setCheckable(true);
-            chip.setChecked(filter.equals("All"));
+            chip.setChecked(filter.equals(getString(R.string.filter_all)));
             chip.setChipBackgroundColorResource(R.color.chip_background_selector);
             chip.setTextColor(getResources().getColorStateList(R.color.chip_text_selector, getTheme()));
             chip.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -144,24 +150,20 @@ public class MainActivity extends AppCompatActivity implements IdeaAdapter.OnIde
     }
 
     private void applyFilter(String filter) {
-        switch (filter) {
-            case "Not Started":
-            case "In Progress":
-            case "Completed":
-                viewModel.getIdeasByStatus(filter).observe(this, ideas -> {
-                    currentList = ideas != null ? ideas : new ArrayList<>();
-                    updateUI(currentList);
-                });
-                break;
-            case "Priority":
-                viewModel.getPriorityIdeas().observe(this, ideas -> {
-                    currentList = ideas != null ? ideas : new ArrayList<>();
-                    updateUI(currentList);
-                });
-                break;
-            default:
-                observeIdeas();
-                break;
+        if (filter.equals(getString(R.string.status_not_started)) ||
+                filter.equals(getString(R.string.status_in_progress)) ||
+                filter.equals(getString(R.string.status_completed))) {
+            viewModel.getIdeasByStatus(filter).observe(this, ideas -> {
+                currentList = ideas != null ? ideas : new ArrayList<>();
+                updateUI(currentList);
+            });
+        } else if (filter.equals(getString(R.string.priority))) {
+            viewModel.getPriorityIdeas().observe(this, ideas -> {
+                currentList = ideas != null ? ideas : new ArrayList<>();
+                updateUI(currentList);
+            });
+        } else {
+            observeIdeas();
         }
     }
 
@@ -186,11 +188,11 @@ public class MainActivity extends AppCompatActivity implements IdeaAdapter.OnIde
             binding.recyclerViewIdeas.setVisibility(View.GONE);
             String query = binding.searchEditText.getText().toString();
             if (!query.isEmpty()) {
-                binding.emptyStateText.setText("No ideas found for \"" + query + "\"");
-                binding.emptyStateSubtext.setText("Try a different search term");
+                binding.emptyStateText.setText(getString(R.string.no_ideas_found, query));
+                binding.emptyStateSubtext.setText(R.string.try_different_search);
             } else {
-                binding.emptyStateText.setText("No ideas yet!");
-                binding.emptyStateSubtext.setText("Tap the + button to add your first idea");
+                binding.emptyStateText.setText(R.string.no_ideas);
+                binding.emptyStateSubtext.setText(R.string.no_ideas_sub);
             }
         } else {
             binding.emptyStateLayout.setVisibility(View.GONE);
@@ -209,8 +211,8 @@ public class MainActivity extends AppCompatActivity implements IdeaAdapter.OnIde
     public void onPriorityToggle(Idea idea) {
         idea.setPriority(!idea.isPriority());
         viewModel.update(idea);
-        String msg = idea.isPriority() ? "Marked as priority ⭐" : "Removed from priority";
-        Snackbar.make(binding.getRoot(), msg, Snackbar.LENGTH_SHORT).show();
+        int msgRes = idea.isPriority() ? R.string.priority_added : R.string.priority_removed;
+        Snackbar.make(binding.getRoot(), msgRes, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
@@ -230,13 +232,15 @@ public class MainActivity extends AppCompatActivity implements IdeaAdapter.OnIde
             startActivity(intent);
             return true;
         } else if (item.getItemId() == R.id.action_about) {
+            String aboutMessage = getString(R.string.app_description) + "\n\n" +
+                    getString(R.string.version_label, "1.3") + "\n\n" +
+                    getString(R.string.developed_by, getString(R.string.developer_name)) + "\n" +
+                    getString(R.string.contact, getString(R.string.developer_contact));
+
             new MaterialAlertDialogBuilder(this)
-                    .setTitle("Value ideas")
-                    .setMessage("Capture, track, and implement your best ideas.\n\n" +
-                            "Version 1.0\n\n" +
-                            "Developed by: Parsharamulu Mangol\n" +
-                            "Mobile: +91-9032831306")
-                    .setPositiveButton("OK", null)
+                    .setTitle(R.string.app_name)
+                    .setMessage(aboutMessage)
+                    .setPositiveButton(android.R.string.ok, null)
                     .show();
             return true;
         }
