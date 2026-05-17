@@ -97,7 +97,6 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private Idea parseCsvLine(String line) {
-        // Basic CSV parser that handles quoted values with commas
         List<String> tokens = new ArrayList<>();
         StringBuilder currentToken = new StringBuilder();
         boolean inQuotes = false;
@@ -118,7 +117,6 @@ public class SettingsActivity extends AppCompatActivity {
         if (tokens.size() < 10) return null;
 
         Idea idea = new Idea();
-        // Skip ID (index 0) to let Room generate new IDs or use onConflict REPLACE
         idea.setTitle(tokens.get(1));
         idea.setDescription(tokens.get(2));
         idea.setCategory(tokens.get(3));
@@ -136,14 +134,7 @@ public class SettingsActivity extends AppCompatActivity {
             idea.setTags(Arrays.asList(tagsStr.split("\\|")));
         }
 
-        try {
-            // Very basic date parsing - in real app would use a proper Formatter
-            // For now, we'll just set a new date if parsing fails
-            idea.setDateCreated(new Date()); 
-        } catch (Exception e) {
-            idea.setDateCreated(new Date());
-        }
-        
+        idea.setDateCreated(new Date());
         idea.setDateModified(new Date());
         return idea;
     }
